@@ -1,24 +1,24 @@
 <template>
-    <div id="app">
-      
-      <div class="view-grid">
-        <list-grid></list-grid>
-      </div>
-      <div class="form-grid">
-        <add-grid></add-grid>        
-      </div>              
+  <div class="GameGrid">
+    <div class="view-grid">
+      <grid></grid>
     </div>
+    <div class="form-grid">
+      <grid-setup></grid-setup>
+    </div>
+  </div>
 </template>
 
 <script>
-import AddGrid  from '../components/AddGrid'
-import ListGrid from '../components/ListGrid'
+import GridSetup  from '../components/GridSetup';
+import Grid from '../components/ListGrid';
 
 export default {
-    name: 'App',
-    components: {
-        AddGrid, ListGrid
-    }
+  name: 'GameGrid',
+  components: {
+    GridSetup,
+    Grid,
+  }
 }
 </script>
 
@@ -38,4 +38,3 @@ export default {
 }
 
 </style>
-

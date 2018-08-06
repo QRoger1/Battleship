@@ -3,7 +3,7 @@ import Router from 'vue-router';
 
 
 import Home from './views/Home.vue';
-import GameGrid from './views/GameGrid.vue';
+import Game from './views/GameGrid.vue';
 
 Vue.use(Router);
 
@@ -17,7 +17,7 @@ export default new Router({
         {
           path: '/gamegrid',
           name: 'gamegrid',
-          component: GameGrid,
+          component: Game,
         },
       ],
     },
