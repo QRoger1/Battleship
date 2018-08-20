@@ -5,13 +5,13 @@
         <span>number of columns</span>
       </div>       
       <div>
-        <input type="number" v-model.number="columns" id="numColumms">
+        <input type="number" v-model.number="columns" id="numColumms" @keyup="updateGridValue()" @change="updateGridValue()">
       </div>
       <div>
         <span>number of rows</span>
       </div>       
       <div>
-        <input type="number" v-model.number="rows" id="numRows">
+        <input type="number" v-model.number="rows" id="numRows" @keyup="updateGridValue()" @change="updateGridValue()">
       </div>        
       <div>
         <button type="button" name="button" v-on:click="addGrid">Insert Grid</button>        
@@ -26,7 +26,7 @@
         <span>{{tokenPlayer}}</span>
       </div>
       <div>
-        <button type="button" name="buttonJoin">Join</button>        
+        <button type="button" name="buttonJoin"  v-on:click="JoinPlayer">Join</button>        
       </div>
     </div>             
   </div>
@@ -34,45 +34,65 @@
 
 <script>
 import EventBus from "../services/bus";
-import GameService from '../services/game.js';
+import GameService from "../services/game.js";
 
 export default {
   name: "GridSetup",
   data() {
     return {
-      columns: '0',
-      rows: '0',
-      tokenPlayer: '',      
+      columns: 10,
+      rows: 10,
+      tokenPlayer: ""
     };
   },
   methods: {
+    updateGridValue() {
+      if (
+        parseInt(this.columns) >= 10 &&
+        parseInt(this.columns) <= 30 &&
+        parseInt(this.rows) >= 10 &&
+        parseInt(this.rows) <= 30
+      ) {
+        EventBus.$emit("size-change", {
+          columns: this.columns,
+          rows: this.rows
+        });
+      } else {
+        if (parseInt(this.columns) <= 10 || parseInt(this.columns) >= 30) {
+          this.columns = 10;
+        }
+        if (parseInt(this.rows) <= 10 || parseInt(this.rows) >= 30) {
+          this.rows = 10;
+        }
+      }
+    },
     addGrid() {
       EventBus.$emit("size-change", {
-        columns : this.columns,
-        rows : this.rows
+        columns: this.columns,
+        rows: this.rows
       });
 
-      GameService.getCreateGame(
-        this.columns,
-        this.rows,
-      )
-		  .then(data => {
-        if(data['Success'] === true) {		        
-          this.tokenPlayer = data.Game.Player2;
-		    } else {		        
-		      alert(data['Message']);
-		    }
-		  })
-		  .catch(error => {
-        alert(error);
-      });      
-    },    
-  },
+      GameService.getCreateGame(this.columns, this.rows)
+        .then(response => {
+          console.log(response);
+          this.tokenPlayer = response.data.session;
+          EventBus.$emit("mapBoard-setup", {
+            id: response.data.Id,
+            playerId: response.data.playerId,
+            rows: this.rows,
+            columns: this.columns
+          });
+        })
+        .catch(error => {
+          alert(error);
+        });
+    },
+    JoinPlayer() {}
+  }
 };
 </script>
 
 <style>
-
 .form-table {
   margin-top: 50px;
 }
@@ -91,5 +111,4 @@ input {
   width: 80%;
   color: green;
 }
-
 </style>
