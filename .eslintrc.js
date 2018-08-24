@@ -9,6 +9,7 @@ module.exports = {
   ],
   rules: {
     'no-alert': "error",
+    'eslint max-len': ["error", { "code": 180 }],
     'linebreak-style': ["error", "windows"],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'

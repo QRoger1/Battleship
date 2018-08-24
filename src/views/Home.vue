@@ -1,16 +1,16 @@
 <template>
-  <div class="home">  	
-  	<h1>BATTLESHIP VUE-JS</h1>  	
+  <div class="home">
+  	<h1>BATTLESHIP VUE-JS</h1>
     <div>
       <router-view/>
-    </div>    
+    </div>
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'home'
+  name: 'home',
 };
 </script>
 

@@ -1,14 +1,14 @@
 <template>
-  <div class="grid-table">                
+  <div class="grid-table">
     <hr>
     <div id="draw-table">
       <table id="grid">
-        <tr v-for="row in rows">
+        <tr v-for="row in rows" v-bind:key=row>
           <td v-for="column in columns" :key="column * row"></td>
-        </tr>      
+        </tr>
       </table>
-  	</div>
-		<hr>
+    </div>
+    <hr>
   </div>
 </template>
 
@@ -17,11 +17,11 @@ import EventBus from '../services/bus';
 
 export default {
   name: 'Grid',
-  data () {
+  data() {
     return {
       columns: '',
-      rows: ''
-    }
+      rows: '',
+    };
   },
   created() {
     EventBus.$on('size-change', (data) => {
@@ -29,24 +29,25 @@ export default {
       this.rows = data.rows;
     });
   },
-}
+};
+
 </script>
 
 <style>
 .grid-table {
-	margin: auto;
-	align-content: center;
+  margin: auto;
+  align-content: center;
 }
 
 table {
-	font-family: arial, sans-serif;
-	width: 50%;
+  font-family: arial, sans-serif;
+  width: 50%;
 }
 
 td, th {
-	border: 1px solid #dddddd;
-	text-align: left;
-	padding: 8px;
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
 }
 
 #grid {
