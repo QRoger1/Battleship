@@ -33,7 +33,7 @@ export default {
 .view-grid {
   width: 70%;
   float: left;
-  background-color: #dbd063;
+  background-color: #242e42;
   min-height: 600px;
 }
 

@@ -1,0 +1,1 @@
+module.exports.urlService = "http://localhost:3000/game";
